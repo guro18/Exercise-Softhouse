@@ -6,28 +6,28 @@
       <street>Drottningholms slott</street>
       <city>Stockholm</city>
       <postalcode>10002</postalcode>
-     </address>
+    </address>
     <phone>
       <mobile>0768-101801</mobile>
       <landlinenumber>08-101801</landlinenumber>
     </phone>
     <family>
       <name>Victoria</name>
-        <born>1977</born>
-        <address>
+      <born>1977</born>
+      <address>
         <street>Haga Slott</street>
         <city>Stockholm</city>
         <postalcode>10002</postalcode>
-        </address>
-     </family>
-     <family>
-     <name>Carl Philip</name>
-     <born>1979</born>
-     <phone>
-      <mobile>0768-101802</mobile>
-      <landlinenumber>08-101802</landlinenumber>
-    </phone>
-     </family>
+      </address>
+    </family>
+    <family>
+      <name>Carl Philip</name>
+      <born>1979</born>
+      <phone>
+        <mobile>0768-101802</mobile>
+        <landlinenumber>08-101802</landlinenumber>
+      </phone>
+    </family>
   </person>
   <person>
     <firstname>Barack</firstname>
