@@ -1,5 +1,4 @@
-# Exercise-Softhouse
-Exercise Softhouse XML Converter
+# Exercise-Softhouse-XMLConverter
 This project aims to convert old row based file format into specified XML format,
 using typescript. The format of the input files are following:
 
@@ -9,6 +8,7 @@ using typescript. The format of the input files are following:
     F|name|born
 
 P can have child elements: T, A and F
+
 F can have child elements: T and A
 
 Please see the exampleInput.txt and exampleOutput.xml for reference
@@ -17,5 +17,11 @@ Please see the exampleInput.txt and exampleOutput.xml for reference
 - Parse row-based input files
 - Convert rows into structured XML format
 
+## Prerequisites
+- npm (Node Package Manager)
+
 ## Usage
-- Go to the directory where the inputfile is located and run
+- Clone the repo to your local machine
+- Run: `npm install ts-node typescript` , to install packages
+- Run `node --loader ts-node/esm XMLConverter.ts [yourfile.txt]` , to convert your file
+- The file should appear
