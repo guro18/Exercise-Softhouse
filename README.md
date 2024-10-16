@@ -28,6 +28,6 @@ Please see the exampleInput.txt, exampleOutput.xml and XMLstructures.png for ref
 - The outputfile should appear in the same directory
 
 ## Project Structure
-├── TagsDict.ts       # Contains the tags dictionary
-├── XMLConverter.ts   # Contains the XMLConverter class
-└── Main.ts           # Main script that calls the class & methods & file operations
+- TagsDict.ts       # Contains the tags dictionary
+- XMLConverter.ts   # Contains the XMLConverter class
+- Main.ts           # Main script that calls the class & methods & file operations
