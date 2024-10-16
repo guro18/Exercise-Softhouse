@@ -24,7 +24,7 @@ Please see the exampleInput.txt, exampleOutput.xml and XMLstructures.png for ref
 - Clone the repo to your local machine
 - Run: `npm install ts-node typescript` , to install packages
 - Make sure you have the inputfile you want to convert in the same directory
-- Run `node --loader ts-node/esm --experimental-specifier-resolution=node main.ts <yourInputFile.txt> <yourOutputFileName>`
+- Run `node --loader ts-node/esm --experimental-specifier-resolution=node Main.ts <yourInputFile.txt> <yourOutputFileName>`
 - The outputfile should appear in the same directory
 
 ## Project Structure
