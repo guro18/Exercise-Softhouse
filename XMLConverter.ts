@@ -29,19 +29,71 @@ class XMLConverter {
 
     generateXML(rows: string[][]): string {
         let xml = '<people>\n';
+        let isPersonClosed = true;
+        let isFamilyClosed = true;
 
         rows.forEach(row => {
             const recordType = row[0];
             const tags = tagsDict[recordType];
 
-            if (tags) {
-                xml += `  <${tags[0]}>\n`;
-                for (let i = 1; i < tags.length; i++) {
-                    xml += `    <${tags[i]}>${row[i]}</${tags[i]}>\n`;
-                }
-                xml += `  </${tags[0]}>\n`;
+            if (recordType === 'P') {
+              if (!isPersonClosed) {
+                  xml += `\t</person>\n`;
+              }
+
+              xml += `\t<${tags[0]}>\n`;
+              xml += `\t\t<${tags[1]}>${row[1]}</${tags[1]}>\n`;
+              xml += `\t\t<${tags[2]}>${row[2]}</${tags[2]}>\n`;
+
+              isPersonClosed = false;
+              isFamilyClosed = true;
+            }
+
+            else if (recordType === 'F') {
+              if (!isFamilyClosed) {
+                xml += `\t\t</family>\n`;
+              }
+
+              xml += `\t\t<${tags[0]}>\n`;
+              xml += `\t\t\t<${tags[1]}>${row[1]}</${tags[1]}>\n`;
+              xml += `\t\t\t<${tags[2]}>${row[2]}</${tags[2]}>\n`;
+              isFamilyClosed = false;
+            }
+
+            else if (recordType === 'A') {
+              if (isFamilyClosed) {
+                xml += `\t\t<address>\n`;
+              }
+
+              xml += `\t\t\t<${tags[1]}>${row[1]}</${tags[1]}>\n`;
+              xml += `\t\t\t<${tags[2]}>${row[2]}</${tags[2]}>\n`;
+              xml += `\t\t\t<${tags[3]}>${row[3]}</${tags[3]}>\n`;
+              if (isFamilyClosed) {
+                xml += `\t\t</address>\n`;
+              }
+            }
+
+            else if (recordType === 'T') {
+              if (isFamilyClosed) {
+                xml += `\t\t<phone>\n`;
+              }
+
+              xml += `\t\t\t<${tags[1]}>${row[1]}</${tags[1]}>\n`;
+              xml += `\t\t\t<${tags[2]}>${row[2]}</${tags[2]}>\n`;
+              if (isFamilyClosed) {
+                xml += `\t\t</phone>\n`;
+              }
             }
         });
+
+        if (!isFamilyClosed) {
+          xml += `\t\t</family>\n`;
+        }
+
+        if (!isPersonClosed) {
+          xml += `\t</person>\n`;
+        }
+
         xml += '</people>';
         return xml;
     }
