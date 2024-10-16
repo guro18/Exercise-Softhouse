@@ -33,58 +33,76 @@ class XMLConverter {
         let isFamilyClosed = true;
 
         rows.forEach(row => {
-            const recordType = row[0];
-            const tags = tagsDict[recordType];
-
-            if (recordType === 'P') {
+          const recordType = row[0];
+          const tags = tagsDict[recordType];
+      
+          // Handle 'P' - Person
+          if (recordType === 'P') {
               if (!isPersonClosed) {
-                  xml += `\t</person>\n`;
+                  if (!isFamilyClosed) {
+                      xml += `\t\t</family>\n`;  // Close open family before closing person
+                      isFamilyClosed = true;
+                  }
+                  xml += `\t</person>\n`;  // Close open person
               }
-
-              xml += `\t<${tags[0]}>\n`;
-              xml += `\t\t<${tags[1]}>${row[1]}</${tags[1]}>\n`;
-              xml += `\t\t<${tags[2]}>${row[2]}</${tags[2]}>\n`;
-
-              isPersonClosed = false;
-              isFamilyClosed = true;
-            }
-
-            else if (recordType === 'F') {
+      
+              // Start new person
+              xml += `\t<${tags[0]}>\n`; //person
+              xml += `\t\t<${tags[1]}>${row[1]}</${tags[1]}>\n`; //firstname
+              xml += `\t\t<${tags[2]}>${row[2]}</${tags[2]}>\n`; //lastname
+      
+              isPersonClosed = false; //dont close person
+              isFamilyClosed = true; //keep family closed
+          }
+      
+          // Handle 'F' - Family
+          else if (recordType === 'F') {
               if (!isFamilyClosed) {
-                xml += `\t\t</family>\n`;
+                  xml += `\t\t</family>\n`;  // Close the previous family if it exists
               }
-
+      
+              // Start new family
               xml += `\t\t<${tags[0]}>\n`;
               xml += `\t\t\t<${tags[1]}>${row[1]}</${tags[1]}>\n`;
               xml += `\t\t\t<${tags[2]}>${row[2]}</${tags[2]}>\n`;
+      
               isFamilyClosed = false;
-            }
-
-            else if (recordType === 'A') {
-              if (isFamilyClosed) {
-                xml += `\t\t<address>\n`;
-              }
-
+          }
+      
+          // Handle 'A' - Address
+          else if (recordType === 'A') {
+            if (isFamilyClosed) {
+              xml += `\t\t<address>\n`;
               xml += `\t\t\t<${tags[1]}>${row[1]}</${tags[1]}>\n`;
               xml += `\t\t\t<${tags[2]}>${row[2]}</${tags[2]}>\n`;
-              xml += `\t\t\t<${tags[3]}>${row[3]}</${tags[3]}>\n`;
-              if (isFamilyClosed) {
-                xml += `\t\t</address>\n`;
-              }
+              if (row[3]) xml += `\t\t\t<${tags[3]}>${row[3]}</${tags[3]}>\n`;  // Handle missing postalcode
+              xml += `\t\t</address>\n`;
             }
-
-            else if (recordType === 'T') {
-              if (isFamilyClosed) {
-                xml += `\t\t<phone>\n`;
-              }
-
+            else {
+              xml += `\t\t\t<address>\n`;
+              xml += `\t\t\t\t<${tags[1]}>${row[1]}</${tags[1]}>\n`;
+              xml += `\t\t\t\t<${tags[2]}>${row[2]}</${tags[2]}>\n`;
+              if (row[3]) xml += `\t\t\t\t<${tags[3]}>${row[3]}</${tags[3]}>\n`;  // Handle missing postalcode
+              xml += `\t\t\t</address>\n`;
+            }
+          }
+      
+          // Handle 'T' - Phone
+          else if (recordType === 'T') {
+            if (isFamilyClosed) {
+              xml += `\t\t<phone>\n`;
               xml += `\t\t\t<${tags[1]}>${row[1]}</${tags[1]}>\n`;
               xml += `\t\t\t<${tags[2]}>${row[2]}</${tags[2]}>\n`;
-              if (isFamilyClosed) {
-                xml += `\t\t</phone>\n`;
-              }
+              xml += `\t\t</phone>\n`;
             }
-        });
+            else {
+              xml += `\t\t\t<phone>\n`;
+              xml += `\t\t\t\t<${tags[1]}>${row[1]}</${tags[1]}>\n`;
+              xml += `\t\t\t\t<${tags[2]}>${row[2]}</${tags[2]}>\n`;
+              xml += `\t\t\t</phone>\n`;
+            }
+          }
+      });
 
         if (!isFamilyClosed) {
           xml += `\t\t</family>\n`;
