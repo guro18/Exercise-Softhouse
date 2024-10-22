@@ -23,7 +23,9 @@ const xmlFile = converter.generateXML(rows);
 try {
   fs.writeFileSync(outputFile, xmlFile);
   console.log(`Successfully wrote to ${outputFile}`);
-} catch (error) {
+} 
+
+catch (error) {
   console.error(`Error writing to file: ${outputFile}`, error);
   process.exit(1);
 }
