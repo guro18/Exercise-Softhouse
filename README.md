@@ -11,7 +11,7 @@ P can have child elements: T, A and F
 
 F can have child elements: T and A
 
-Please see the exampleInput.txt, exampleOutput.xml and XMLstructures.png for reference
+Please see the example-input.txt, example-output.xml and xml-structures.png for reference
 
 ## Features
 - Parse row-based input files
@@ -24,10 +24,10 @@ Please see the exampleInput.txt, exampleOutput.xml and XMLstructures.png for ref
 - Clone the repo to your local machine
 - Run: `npm install ts-node typescript` , to install packages
 - Make sure you have the inputfile you want to convert in the same directory
-- Run `node --loader ts-node/esm --experimental-specifier-resolution=node Main.ts <yourInputFile.txt> <yourOutputFileName>`
+- Run `node --loader ts-node/esm --experimental-specifier-resolution=node main.ts <your-input-file.txt> <your-output-file-name>`
 - The outputfile should appear in the same directory
 
 ## Project Structure
-- TagsDict.ts       # Contains the tags dictionary
-- XMLConverter.ts   # Contains the XMLConverter class
-- Main.ts           # Main script that calls the class & methods & file operations
+- tags-dict.ts       # Contains the tags dictionary
+- xml-converter.ts   # Contains the XMLConverter class
+- main.ts           # Main script that calls the class & methods & file operations

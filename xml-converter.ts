@@ -1,4 +1,4 @@
-import { tagsDict } from './TagsDict';
+import { tagsDict } from './tags-dict';
 
 //class to convert the input file to xml file
 export class XMLConverter {

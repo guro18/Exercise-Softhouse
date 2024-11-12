@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { XMLConverter } from './XMLConverter';
+import { XMLConverter } from './xml-converter';
 
 const args = process.argv;
 const ending = '.xml'
